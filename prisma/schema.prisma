@@ -21,7 +21,7 @@ model Character {
   race      Race
   bio       String @db.VarChar(255)
   userId    Int
-  user      User   @relation(fields: [userId], references: [id])
+  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 enum Race {
