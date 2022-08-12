@@ -2,12 +2,9 @@ import "reflect-metadata";
 import express, {Express} from "express";
 import {ApolloServer} from "apollo-server-express";
 import {buildSchema} from "type-graphql";
-import {UserResolver} from "./resolvers/user";
-import { PrismaClient } from '@prisma/client'
-
-
-//db connection
-const prisma = new PrismaClient();
+import {UserResolver} from "./graphql/resolvers/user";
+import prisma from "./prisma/client"
+import {CharacterResolver} from "./graphql/resolvers/character";
 
 const main = async () => {
     //server
@@ -15,7 +12,7 @@ const main = async () => {
 
     const apolloServer = new ApolloServer({
         schema: await buildSchema({
-            resolvers: [UserResolver],
+            resolvers: [UserResolver, CharacterResolver],
             validate: false,
         })
     });
@@ -24,6 +21,12 @@ const main = async () => {
     apolloServer.applyMiddleware({app});
 
     const PORT = process.env.PORT || 5000;
+
+    app.use(express.static("public"));
+
+    // app.get('/', (req, res) => {
+    //     res.sendFile(path.join(__dirname, "public", "index.html"))
+    // })
 
     app.listen(PORT, () => {
         console.log(`Running on port ${PORT}`)
@@ -37,3 +40,4 @@ main().then(async () => {
     await prisma.$disconnect()
     process.exit(1)
 })
+

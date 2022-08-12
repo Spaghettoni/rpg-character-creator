@@ -7,7 +7,26 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model users {
-  id   Int    @id @default(autoincrement())
-  name String @db.Char(50)
+model User {
+  id         Int         @id @default(autoincrement())
+  email      String      @unique @db.VarChar(255)
+  characters Character[]
+}
+
+model Character {
+  id        Int    @id @default(autoincrement())
+  firstName String @db.VarChar(50)
+  lastName  String @unique @db.VarChar(50)
+  age       Int
+  race      Race
+  bio       String @db.VarChar(255)
+  userId    Int
+  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+enum Race {
+    HUMAN
+    ELF
+    ORK
+    DWARF
 }
