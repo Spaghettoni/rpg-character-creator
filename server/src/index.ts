@@ -5,9 +5,11 @@ import {buildSchema} from "type-graphql";
 import {UserResolver} from "./graphql/resolvers/user";
 import prisma from "./prisma/client"
 import {CharacterResolver} from "./graphql/resolvers/character";
+import cors from 'cors';
+
 
 const main = async () => {
-    //server
+    //src
     const app: Express = express();
 
     const apolloServer = new ApolloServer({
@@ -20,18 +22,25 @@ const main = async () => {
     await apolloServer.start();
     apolloServer.applyMiddleware({app});
 
-    const PORT = process.env.PORT || 5000;
+    const PORT = process.env.PORT || 8000;
 
-    app.use(express.static("public"));
+    app.use(cors());
 
-    // app.get('/', (req, res) => {
-    //     res.sendFile(path.join(__dirname, "public", "index.html"))
-    // })
+    app.get('/hello', (req, res) => {
+        res.json({"data": 'Hello world!'});
+    })
 
     app.listen(PORT, () => {
         console.log(`Running on port ${PORT}`)
     })
+
 }
+
+process.on('SIGINT', function() {
+    console.log( "\nGracefully shutting down from SIGINT (Ctrl-C)" );
+    // some other closing procedures go here
+    process.exit(0);
+});
 
 main().then(async () => {
     await prisma.$disconnect()
