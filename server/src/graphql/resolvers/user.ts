@@ -12,10 +12,21 @@ export class UserResolver {
     }
 
     @Query(() => User, {nullable: true})
-    async getUser(id: number) {
+    async getUserById(id: number) {
         return prisma.user.findUnique({
             where: {
                 id: id,
+            },
+        })
+    }
+
+    @Query(() => User, {nullable: true})
+    async getUserByEmail(
+        @Arg("email") email: string,
+     ) {
+        return prisma.user.findUnique({
+            where: {
+                email: email,
             },
         })
     }

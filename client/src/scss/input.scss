@@ -1,0 +1,13 @@
+@mixin input {
+  padding: 10px 25px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+input {
+  @include input
+}
+
+.has-error {
+  border: 1px solid indianred;
+}
