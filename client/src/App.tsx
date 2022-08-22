@@ -1,33 +1,38 @@
-import React, {useEffect} from 'react';
-import logo from './logo.svg';
-import './App.css';
-import { useQuery } from '@apollo/client';
-import {GET_USERS} from "./queries/user";
+import React, {useState} from 'react';
+import './App.scss';
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {ApolloClient, ApolloProvider, InMemoryCache} from "@apollo/client";
+import {Login} from "./routes/login";
+import {CreateCharacter} from "./routes/createCharacter";
+import {CharacterList} from "./routes/characterList";
+import {GlobalContext} from './context';
 
+const client = new ApolloClient({
+    uri: 'http://localhost:8000/graphql',
+    cache: new InMemoryCache(),
+});
 
 const App = () => {
-
-    const { loading, error, data } = useQuery(GET_USERS);
-
-    useEffect(() => {
-
-    }, []);
-
-    if (loading) return <p>Loading...</p>;
-
-    if (error) return <p>Error :(</p>;
+    const [user, setUser] = useState<string | null>(null);
+    const [characters, setCharacters] = useState<[] | null>(null);
 
     return (
-        <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                {data.allUsers.map((user: any, index: number) => (
-                    <p key={index}>
-                        User {index} : {user.email}
-                    </p>
-                ))}
-            </header>
-        </div>
+        <React.StrictMode>
+            <ApolloProvider client={client}>
+                <GlobalContext.Provider value={{
+                    user, setUser,
+                    characters, setCharacters
+                }}>
+                    <BrowserRouter>
+                        <Routes>
+                            <Route path="/" element={<Login />} />
+                            <Route path="/create" element={<CreateCharacter />} />
+                            <Route path="/list" element={<CharacterList />} />
+                        </Routes>
+                    </BrowserRouter>
+                </GlobalContext.Provider>
+            </ApolloProvider>
+        </React.StrictMode>
     );
 }
 

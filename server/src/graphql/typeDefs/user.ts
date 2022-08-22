@@ -9,6 +9,6 @@ export class User {
     email!: string
 
     @Field((type) => [Character], { nullable: true })
-    characters?: [Character] | null
+    characters!: [Character] | null
 
 }

@@ -1,0 +1,22 @@
+@mixin Button {
+  padding: 0.625rem 1.5rem;
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 0.3rem;
+  background-color: white;
+  font-weight: bold;
+}
+
+@mixin ButtonHover {
+  border: 1px solid rgb(0, 0, 0);
+  background-color: black;
+  color: white;
+  cursor: pointer;
+}
+
+button {
+  @include Button
+}
+
+button:hover {
+  @include ButtonHover
+}

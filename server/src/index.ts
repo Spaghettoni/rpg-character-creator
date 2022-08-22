@@ -26,10 +26,6 @@ const main = async () => {
 
     app.use(cors());
 
-    app.get('/hello', (req, res) => {
-        res.json({"data": 'Hello world!'});
-    })
-
     app.listen(PORT, () => {
         console.log(`Running on port ${PORT}`)
     })
