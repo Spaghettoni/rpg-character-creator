@@ -1,19 +1,37 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.scss';
-import {Link} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {ApolloClient, ApolloProvider, InMemoryCache} from "@apollo/client";
+import {Login} from "./routes/login";
+import {CreateCharacter} from "./routes/createCharacter";
+import {CharacterList} from "./routes/characterList";
+import {GlobalContext} from './context';
+
+const client = new ApolloClient({
+    uri: 'http://localhost:8000/graphql',
+    cache: new InMemoryCache(),
+});
 
 const App = () => {
+    const [user, setUser] = useState<string | null>(null);
+
     return (
-        <main className="App">
-            <header className="App-header">
-                <h1>Welcome to RPG character creator!</h1>
-                <Link to='/login'>
-                    <button className='login-button'>
-                        Login
-                    </button>
-                </Link>
-            </header>
-        </main>
+        <React.StrictMode>
+            <ApolloProvider client={client}>
+                <GlobalContext.Provider value={{
+                    user, setUser
+                }}>
+                    <BrowserRouter>
+                        <Routes>
+                            <Route path="/" element={<Login />} />
+                            <Route path="/login" element={<Login />} />
+                            <Route path="/create" element={<CreateCharacter />} />
+                            <Route path="/list" element={<CharacterList />} />
+                        </Routes>
+                    </BrowserRouter>
+                </GlobalContext.Provider>
+            </ApolloProvider>
+        </React.StrictMode>
     );
 }
 

@@ -1,9 +1,21 @@
-@mixin button {
+@mixin Button {
   padding: 10px 25px;
-  border: 1px solid black;
+  border: 1px solid rgb(0, 0, 0);
   border-radius: 5px;
+  background-color: white;
+  font-weight: bold;
+}
+
+@mixin ButtonHover {
+  border: 1px solid rgb(0, 0, 0);
+  background-color: black;
+  color: white;
 }
 
 button {
-  @include button
+  @include Button
+}
+
+button:hover {
+  @include ButtonHover
 }
