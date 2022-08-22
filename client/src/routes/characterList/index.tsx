@@ -10,8 +10,7 @@ export const CharacterList = () => {
         <main>
             <section className={'container'}>
                 <header>
-                    <h1>User: {user}</h1>
-                    <h2>Your characters</h2>
+                    <h2>Your characters ({user})</h2>
 
                     <section>
                     {(characters === null || characters?.length === 0) ?
