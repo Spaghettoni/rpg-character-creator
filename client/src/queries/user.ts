@@ -11,7 +11,9 @@ export const GET_USERS = gql(`
 export const GET_USER_BY_EMAIL = gql(`
     query GetUserByEmail($email: String!) {
         getUserByEmail(email: $email) {
-            email
+            email, characters {
+                firstName
+            }
         }
     }
 `);

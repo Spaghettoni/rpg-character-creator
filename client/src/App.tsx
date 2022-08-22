@@ -14,17 +14,18 @@ const client = new ApolloClient({
 
 const App = () => {
     const [user, setUser] = useState<string | null>(null);
+    const [characters, setCharacters] = useState<[] | null>(null);
 
     return (
         <React.StrictMode>
             <ApolloProvider client={client}>
                 <GlobalContext.Provider value={{
-                    user, setUser
+                    user, setUser,
+                    characters, setCharacters
                 }}>
                     <BrowserRouter>
                         <Routes>
                             <Route path="/" element={<Login />} />
-                            <Route path="/login" element={<Login />} />
                             <Route path="/create" element={<CreateCharacter />} />
                             <Route path="/list" element={<CharacterList />} />
                         </Routes>

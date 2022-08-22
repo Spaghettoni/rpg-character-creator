@@ -1,8 +1,10 @@
 import {useContext} from "react";
 import {GlobalContext} from "../../context";
+import {ButtonComponent} from "../../components/button";
+import {Link} from "react-router-dom";
 
 export const CharacterList = () => {
-    const {user} = useContext(GlobalContext)
+    const {user, characters} = useContext(GlobalContext)
 
     return (
         <main>
@@ -10,7 +12,25 @@ export const CharacterList = () => {
                 <header>
                     <h1>User: {user}</h1>
                     <h2>Your characters</h2>
-                    <p></p>
+
+                    <section>
+                    {(characters === null || characters?.length === 0) ?
+                     (<p>You currently do not have any characters!</p>) :
+                        (
+                         <div>
+                             {characters.map((character, index) => (
+                                 <div key={index}>
+                                     {character}
+                                 </div>
+                             ))}
+                         </div>
+                        )
+                    }
+                    </section>
+
+                    <Link to={'/create'}>
+                        <ButtonComponent text={'Create new character'}/>
+                    </Link>
                 </header>
             </section>
         </main>

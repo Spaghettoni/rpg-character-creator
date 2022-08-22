@@ -1,6 +1,6 @@
 import {ChangeEvent, FormEvent, useContext, useState} from "react";
 import { useNavigate } from 'react-router-dom';
-import {useLazyQuery, useMutation} from "@apollo/client";
+import {OperationVariables, QueryResult, useLazyQuery, useMutation} from "@apollo/client";
 import {CREATE_USER, GET_USER_BY_EMAIL} from "../../queries/user";
 import {GlobalContext} from "../../context";
 
@@ -10,7 +10,7 @@ export const useLogin = () => {
     const [error, setError] = useState('');
     const [getUserByEmail, {data, loading, refetch}] = useLazyQuery(GET_USER_BY_EMAIL);
     const [createUser, _] = useMutation(CREATE_USER);
-    const {setUser} = useContext(GlobalContext);
+    const {setUser, setCharacters} = useContext(GlobalContext);
 
     const emailRegex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/
 
@@ -24,17 +24,13 @@ export const useLogin = () => {
             setError('Not a valid email address!')
             return
         }
-
-        if (await userExists()){
-            login()
+        const user = await fetchUser();
+        if (user.data.getUserByEmail !== null){
+            login(user)
         } else {
-            register()
+            await register()
+            login(user)
         }
-    }
-
-    const userExists = async () => {
-        const result = await fetchUser()
-        return result.data.getUserByEmail !== null;
     }
 
     const fetchUser = async () => {
@@ -45,13 +41,13 @@ export const useLogin = () => {
         });
     }
 
-    const login = () => {
-        setUser(email);
+    const login = (user: QueryResult<any, OperationVariables>) => {
+        setUser(user.data.getUserByEmail.email);
+        setCharacters(user.data.getUserByEmail.characters)
         navigate('/list')
     }
 
     const register = async () => {
-        setUser(email);
         await createUser({
             variables: {
                 email
@@ -70,6 +66,6 @@ export const useLogin = () => {
     }
 
     return {
-        onLogin, handleInput, email, error
+        onLogin, handleInput, email, error,
     }
 }
