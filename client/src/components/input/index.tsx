@@ -1,7 +1,7 @@
 import '../../scss/input.scss';
 import {InputHTMLAttributes} from "react";
 
-export const InputComponent = (props: InputHTMLAttributes<HTMLInputElement> & {error: boolean}) => {
+export const InputComponent = (props: InputHTMLAttributes<HTMLInputElement> & {error?: boolean}) => {
 
     return (
         <input

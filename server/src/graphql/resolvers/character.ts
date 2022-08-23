@@ -1,8 +1,9 @@
 import "reflect-metadata";
 import {Character} from "../typeDefs/character";
-import {Arg, Mutation, Query, Resolver} from "type-graphql";
+import {Arg, Mutation, Query, registerEnumType, Resolver} from "type-graphql";
 import prisma from "../../prisma/client";
 import {Race} from '@prisma/client';
+
 
 @Resolver(Character)
 export class CharacterResolver {
@@ -23,7 +24,7 @@ export class CharacterResolver {
 
     @Mutation((returns) => Character)
     async createCharacter(
-        @Arg("email")userId: number,
+        @Arg("userId")userId: number,
         @Arg("firstName") firstName: string,
         @Arg("lastName") lastName: string,
         @Arg("age") age: number,
