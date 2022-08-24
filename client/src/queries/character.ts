@@ -28,6 +28,14 @@ export const CREATE_CHARACTER = gql(`
     }
 `)
 
+export const EDIT_CHARACTER = gql(`
+    mutation EditCharacter($bio: String!, $race: String!, $age: Float!, $lastName: String!, $firstName: String!, $editCharacterId: Float!) {
+      editCharacter(bio: $bio, race: $race, age: $age, lastName: $lastName, firstName: $firstName, id: $editCharacterId) {
+        id
+        firstName
+      }
+    }
+`);
 export const DELETE_CHARACTER = gql(`
     mutation DeleteCharacter($deleteCharacterId: Float!) {
         deleteCharacter(id: $deleteCharacterId) {

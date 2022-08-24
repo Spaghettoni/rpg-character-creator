@@ -9,7 +9,8 @@ export const useCharacterList = () => {
     const {user, setUser} = useContext(GlobalContext);
     const navigate = useNavigate();
     const [getCharacters, {data, loading, refetch}] = useLazyQuery(GET_USER_CHARACTERS);
-    const [deleteCharacter, _] = useMutation(DELETE_CHARACTER);
+    const [editCharacter, _] = useMutation(DELETE_CHARACTER);
+    const [deleteCharacter, __] = useMutation(DELETE_CHARACTER);
 
     useEffect(() => {
         if (user) {
@@ -49,8 +50,30 @@ export const useCharacterList = () => {
         });
     }
 
+    const onEditCharacter = async (character: Character) => {
+        const newCharacters = user!.characters.map(char => {
+            if (char.id === character.id) {
+                return character
+            }
+            return char
+        });
+        setUser({
+            ...user!,
+            characters: newCharacters
+        })
+        return await editCharacter({
+            variables: {
+                editCharacterId: character.id,
+                firstName: character.firstName,
+                lastName: character.lastName,
+                race: character.race,
+                bio: character.bio,
+                age: character.age,
+            }
+        });
+    }
 
     return {
-        user, onDeleteCharacter
+        user, onDeleteCharacter, onEditCharacter
     }
 }

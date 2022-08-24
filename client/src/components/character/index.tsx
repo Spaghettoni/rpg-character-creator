@@ -7,10 +7,11 @@ type CharacterComponentProps = {
     index: number
     character: Character,
     user: User,
-    onDelete: any
+    onDelete: any,
+    onEdit: (character: Character) => any,
 }
 export const CharacterComponent = (props: CharacterComponentProps) => {
-    const {id, firstName, lastName, age, race, bio} = props.character;
+    const {id: characterId, firstName, lastName, age, race, bio} = props.character;
     const {id: userId, email} = props.user;
 
     return (
@@ -22,9 +23,8 @@ export const CharacterComponent = (props: CharacterComponentProps) => {
             <td className={'race cell'}>{race}</td>
             <td className={'bio cell'}>{!bio ? '-' : bio}</td>
             <td className={'edit cell'}>
-                <Link to={'/create'}>
+                <Link to={{pathname:'/create', search: `?myParam=${characterId}`}} state={props.character}>
                     <button id={'edit-button'} className={'table-button'}
-
                     >
                         <EditIcon/>
                     </button>
@@ -32,7 +32,7 @@ export const CharacterComponent = (props: CharacterComponentProps) => {
             </td>
             <td className={'delete cell'}>
                 <button id={'delete-button'} className={'table-button'}
-                        onClick={() => props.onDelete(id)}
+                        onClick={() => props.onDelete(characterId)}
                 >
                     <DeleteIcon />
                 </button>

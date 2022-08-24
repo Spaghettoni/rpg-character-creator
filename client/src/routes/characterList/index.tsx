@@ -6,7 +6,7 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 export const CharacterList = () => {
-    const {user, onDeleteCharacter} = useCharacterList();
+    const {user, onDeleteCharacter, onEditCharacter} = useCharacterList();
 
     if (user === null) {
         return (
@@ -65,6 +65,7 @@ export const CharacterList = () => {
                                          character={character}
                                          user={user}
                                          onDelete={onDeleteCharacter}
+                                         onEdit={onEditCharacter}
                                      />
                                  ))}
                                 </tbody>

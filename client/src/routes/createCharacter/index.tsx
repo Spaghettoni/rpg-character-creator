@@ -7,7 +7,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 
 export const CreateCharacter = () => {
-    const {newCharacter, handleInput, onCreate, error} = useCreateCharacter();
+    const {newCharacter, handleInput, onSubmit, isCreating, error} = useCreateCharacter();
 
     return (
         <main>
@@ -24,9 +24,9 @@ export const CreateCharacter = () => {
                             </ButtonComponent>
                         </Link>
                     </div>
-                    <h2>Create new character</h2>
+                    <h2>{isCreating ? 'Create new character' : 'Edit character'}</h2>
                 </header>
-                <form id='login-form' onSubmit={onCreate}>
+                <form id='login-form' onSubmit={onSubmit}>
                     <label>
                         First name:
                         <InputComponent
