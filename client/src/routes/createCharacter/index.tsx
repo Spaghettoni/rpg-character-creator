@@ -2,7 +2,9 @@ import {InputComponent} from "../../components/input";
 import {ButtonComponent} from "../../components/button";
 import {useCreateCharacter} from "./hooks";
 import {Race} from "../../types";
-import './styles.scss';
+import {Link} from "react-router-dom";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+
 
 export const CreateCharacter = () => {
     const {newCharacter, handleInput, onCreate, error} = useCreateCharacter();
@@ -11,7 +13,18 @@ export const CreateCharacter = () => {
         <main>
             <section className={'container'}>
                 <header>
-                    <h2>Create new character:</h2>
+                    <div id={'back-container'}>
+                        <Link to={'/list'}>
+                            <ButtonComponent
+                                id={'back-button'}
+                                text={''}
+                                name={'back-button'}
+                            >
+                                <ArrowBackIcon/>
+                            </ButtonComponent>
+                        </Link>
+                    </div>
+                    <h2>Create new character</h2>
                 </header>
                 <form id='login-form' onSubmit={onCreate}>
                     <label>
@@ -76,6 +89,7 @@ export const CreateCharacter = () => {
                         />
                     </label>
                     <ButtonComponent
+                        id={'create-button'}
                         type={'submit'}
                         name={'create-button'}
                         text={'Create'}

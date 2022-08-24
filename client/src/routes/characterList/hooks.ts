@@ -22,6 +22,8 @@ export const useCharacterList = () => {
                     }
                 }).catch(error => alert(error));
             }
+        } else {
+            navigate('/');
         }
     }, []);
 

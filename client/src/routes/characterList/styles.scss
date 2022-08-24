@@ -1,0 +1,92 @@
+table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  border: 3px solid black;
+  padding: 3rem;
+
+  tr {
+    border: 1px solid rgba(168, 168, 168, 0.68);
+  }
+
+  tbody tr:nth-child(2n) {
+    background-color: rgba(227, 217, 217, 0.16);
+  }
+
+  tbody tr:nth-child(2n + 1) {
+    background-color: rgba(128, 113, 113, 0.26);
+
+  }
+
+  tr td:nth-child(7) {
+    text-align: center;
+  }
+  tr td:nth-child(8) {
+    text-align: center;
+  }
+
+  //tbody tr:hover{
+  //  background-color: rgba(208, 208, 208, 0.59);
+  //  font-weight: bolder;
+  //}
+  th {
+    border: 1px black solid;
+    text-align: start;
+  }
+  thead th:nth-child(1) {
+    width: 5%;
+  }
+
+  thead th:nth-child(2) {
+    width: 15%;
+  }
+
+  thead th:nth-child(3) {
+    width: 15%;
+  }
+
+  thead th:nth-child(4) {
+    width: 10%;
+  }
+
+  thead th:nth-child(5) {
+    width: 10%;
+  }
+
+  thead th:nth-child(6) {
+    width: 20%;
+  }
+
+  thead th:nth-child(7) {
+    width: 5%;
+  }
+  thead th:nth-child(8) {
+    width: 5%;
+  }
+}
+
+#logout-container {
+  display: flex;
+  justify-content: end;
+}
+
+#create-button {
+  margin-top: 30px;
+}
+
+#edit-button, #delete-button{
+  background-color: rgba(255,255,255,0);
+  border: none;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+#delete-button:hover {
+  color: indianred;
+}
+
+#edit-button:hover {
+  color: rgba(10, 130, 175, 0.56);
+}
+
