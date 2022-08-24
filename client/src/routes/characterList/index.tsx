@@ -1,10 +1,9 @@
-import {useContext} from "react";
-import {GlobalContext} from "../../context";
 import {ButtonComponent} from "../../components/button";
 import {Link, useNavigate} from "react-router-dom";
+import {useCharacterList} from "./hooks";
 
 export const CharacterList = () => {
-    const {user, characters} = useContext(GlobalContext)
+    const {user} = useCharacterList();
 
     if (user === null) {
         return (
@@ -25,16 +24,16 @@ export const CharacterList = () => {
         <main>
             <section className={'container'}>
                 <header>
-                    <h2>Your characters ({user})</h2>
+                    <h2>Your characters ({user.email})</h2>
 
                     <section>
-                    {(characters === null || characters?.length === 0) ?
+                    {(user.characters === null || user.characters.length === 0) ?
                      (<p>You currently do not have any characters!</p>) :
                         (
                          <div>
-                             {characters.map((character, index) => (
+                             {user.characters.map((character, index) => (
                                  <div key={index}>
-                                     {character}
+                                     {character.id} {character.firstName} {character.lastName} {character.race}
                                  </div>
                              ))}
                          </div>

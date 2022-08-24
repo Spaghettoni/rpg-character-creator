@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import {Character} from "../typeDefs/character";
-import {Arg, Mutation, Query, registerEnumType, Resolver} from "type-graphql";
+import {Arg, Mutation, Query, Resolver} from "type-graphql";
 import prisma from "../../prisma/client";
 import {Race} from '@prisma/client';
 
@@ -14,7 +14,8 @@ export class CharacterResolver {
     }
 
     @Query(() => [Character], {nullable: true})
-    async getUserCharacters(userId: number) {
+    async getUserCharacters(
+        @Arg("userId") userId: number) {
         return prisma.character.findMany({
             where: {
                 userId: userId
@@ -22,16 +23,39 @@ export class CharacterResolver {
         })
     }
 
-    @Mutation((returns) => Character)
-    async createCharacter(
-        @Arg("userId")userId: number,
+    @Mutation(() => Character)
+    async editCharacter(
+        @Arg("id") id: number,
         @Arg("firstName") firstName: string,
         @Arg("lastName") lastName: string,
         @Arg("age") age: number,
         @Arg("race") race: Race,
         @Arg("bio") bio: string
     ) {
-        return prisma.character.create({
+        return prisma.character.update({
+            where: {
+                id
+            },
+            data: {
+                firstName,
+                lastName,
+                age,
+                race,
+                bio
+            }
+        });
+    }
+
+    @Mutation((returns) => Character)
+    async createCharacter(
+        @Arg("userId") userId: number,
+        @Arg("firstName") firstName: string,
+        @Arg("lastName") lastName: string,
+        @Arg("age") age: number,
+        @Arg("race") race: Race,
+        @Arg("bio") bio: string
+    ) {
+        return await prisma.character.create({
             data: {
                 firstName,
                 lastName,
@@ -40,6 +64,24 @@ export class CharacterResolver {
                 bio,
                 userId
             }
-        })
+        });
+
+        // prisma.user.update({
+        //             where: {
+        //                 id: userId
+        //             },
+        //             data: {
+        //                 characters: {
+        //                     create: [
+        //                         {
+        //                             firstName: firstName,
+        //                             lastName: lastName,
+        //                             age: age,
+        //                             race: race,
+        //                             bio: bio,
+        //                         }
+        //                     ]
+        //                 }
+        //             }
     }
 }

@@ -17,7 +17,7 @@ export const Login = () => {
                     <label>
                         Email:
                         <InputComponent
-                            error={!!error}
+                            error={!!error ? 1 : 0}
                             type={'text'}
                             name={'email'}
                             value={email}

@@ -1,7 +1,7 @@
 import "reflect-metadata";
-import {Field, ObjectType, registerEnumType} from "type-graphql";
-import {RaceType, Race} from "./race";
-// import {Race} from '@prisma/client'
+import {Field, ID, Int, ObjectType, registerEnumType} from "type-graphql";
+import {RaceType} from "./race";
+import {Race} from '@prisma/client'
 //
 // export enum Race {
 //     HUMAN,
@@ -9,7 +9,7 @@ import {RaceType, Race} from "./race";
 //     ORC,
 //     DWARF
 // }
-
+//
 // registerEnumType(Race, {
 //     name: "Race",
 //     description: "Type of race"
@@ -19,6 +19,9 @@ import {RaceType, Race} from "./race";
 @ObjectType()
 export class Character {
 
+    @Field(() => Int, {nullable: false})
+    id!: number
+
     @Field(() => String, {nullable: false })
     firstName!: string
 
@@ -26,14 +29,14 @@ export class Character {
     lastName!: string
 
     @Field(() => String, { nullable: false })
-    race!: RaceType
+    race!: string
 
-    @Field(() => Number, { nullable: false })
+    @Field(() => Int, { nullable: false })
     age!: number
 
     @Field(() => String, { nullable: true })
     bio?: string
 
-    @Field(() => Number, { nullable: false })
+    @Field(() => Int, { nullable: false })
     userId!: number
 }

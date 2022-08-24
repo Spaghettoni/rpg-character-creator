@@ -17,7 +17,7 @@ export const CreateCharacter = () => {
                     <label>
                         First name:
                         <InputComponent
-                            error={!!error.firstName}
+                            error={!!error.firstName ? 1 : 0}
                             type={'text'}
                             name={'firstName'}
                             value={newCharacter.firstName}
@@ -26,12 +26,12 @@ export const CreateCharacter = () => {
                             alt={'first-name-input'}
                             autoFocus
                         />
-                        <span className={'error'}>{error.firstName}</span>
+                        {/*<span className={'error'}>{error.firstName}</span>*/}
                     </label>
                     <label>
                         Last name:
                         <InputComponent
-                            error={!!error.lastName}
+                            // error={!!error.lastName}
                             type={'text'}
                             name={'lastName'}
                             value={newCharacter.lastName}
@@ -39,7 +39,7 @@ export const CreateCharacter = () => {
                             placeholder={'Mak'}
                             alt={'last-name-input'}
                         />
-                        <span className={'error'}>{error.lastName}</span>
+                        {/*<span className={'error'}>{error.lastName}</span>*/}
                     </label>
                     <label>
                         Age:
@@ -60,8 +60,8 @@ export const CreateCharacter = () => {
                             onChange={handleInput}
                             placeholder={'HUMAN'}
                         >
-                            {Object.keys(Race).map((race, index) => (
-                                <option>{Race[index]}</option>
+                            {Object.values(Race).map((race, index) => (
+                                <option key={index} value={race}>{race}</option>
                             ))}
                         </select>
                     </label>

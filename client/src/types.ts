@@ -1,11 +1,12 @@
 export enum Race {
-    HUMAN,
-    ELF,
-    ORC,
-    DWARF
+    HUMAN = 'HUMAN',
+    ELF = 'ELF',
+    ORK = 'ORK',
+    DWARF = 'DWARF'
 }
 
 export type Character = {
+    id?: number;
     firstName: string,
     lastName: string,
     age: number,
@@ -14,6 +15,7 @@ export type Character = {
 }
 
 export type User = {
+    id: number,
     email: string,
-    characters: Character[] | null
+    characters: Character[]
 }

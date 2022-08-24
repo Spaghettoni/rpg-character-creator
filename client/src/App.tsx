@@ -6,6 +6,7 @@ import {Login} from "./routes/login";
 import {CreateCharacter} from "./routes/createCharacter";
 import {CharacterList} from "./routes/characterList";
 import {GlobalContext} from './context';
+import {User} from "./types";
 
 const client = new ApolloClient({
     uri: 'http://localhost:8000/graphql',
@@ -13,15 +14,13 @@ const client = new ApolloClient({
 });
 
 const App = () => {
-    const [user, setUser] = useState<string | null>(null);
-    const [characters, setCharacters] = useState<[] | null>(null);
+    const [user, setUser] = useState<User | null>(null);
 
     return (
         <React.StrictMode>
             <ApolloProvider client={client}>
                 <GlobalContext.Provider value={{
                     user, setUser,
-                    characters, setCharacters
                 }}>
                     <BrowserRouter>
                         <Routes>
