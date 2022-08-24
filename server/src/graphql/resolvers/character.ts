@@ -46,6 +46,17 @@ export class CharacterResolver {
         });
     }
 
+    @Mutation(() => Character)
+    async deleteCharacter(
+        @Arg("id") id: number,
+    ) {
+        return prisma.character.delete({
+            where: {
+                id
+            }
+        });
+    }
+
     @Mutation((returns) => Character)
     async createCharacter(
         @Arg("userId") userId: number,

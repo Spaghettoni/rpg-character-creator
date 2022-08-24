@@ -7,6 +7,7 @@ type CharacterComponentProps = {
     index: number
     character: Character,
     user: User,
+    onDelete: any
 }
 export const CharacterComponent = (props: CharacterComponentProps) => {
     const {id, firstName, lastName, age, race, bio} = props.character;
@@ -22,13 +23,17 @@ export const CharacterComponent = (props: CharacterComponentProps) => {
             <td className={'bio cell'}>{!bio ? '-' : bio}</td>
             <td className={'edit cell'}>
                 <Link to={'/create'}>
-                    <button id={'edit-button'} className={'table-button'}>
+                    <button id={'edit-button'} className={'table-button'}
+
+                    >
                         <EditIcon/>
                     </button>
                 </Link>
             </td>
             <td className={'delete cell'}>
-                <button id={'delete-button'} className={'table-button'}>
+                <button id={'delete-button'} className={'table-button'}
+                        onClick={() => props.onDelete(id)}
+                >
                     <DeleteIcon />
                 </button>
             </td>

@@ -17,17 +17,17 @@ export const useLogin = () => {
 
     const emailRegex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/
 
-    useEffect(() => {
-        if (!loading && data !== undefined) {
-            if (data.getUserByEmail !== null){
-                login(data.getUserByEmail)
-            } else {
-                register().then(newUser => {
-                    login(newUser.data.createUser)
-                }).catch(error => alert(error))
-            }
-        }
-    }, [loading]);
+    // useEffect(() => {
+    //     if (!loading && data !== undefined) {
+    //         if (data.getUserByEmail !== null){
+    //             login(data.getUserByEmail)
+    //         } else {
+    //             register().then(newUser => {
+    //                 login(newUser.data.createUser)
+    //             }).catch(error => alert(error))
+    //         }
+    //     }
+    // }, [loading]);
 
     const onLogin = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -41,13 +41,13 @@ export const useLogin = () => {
         const user = await fetchUser();
         console.log('user:', user);
 
-        // if (user.data.getUserByEmail !== null){
-        //     login(user.data.getUserByEmail)
-        // } else {
-        //     await register().then(newUser => {
-        //         login(newUser.data.createUser)
-        //     }).catch(error => alert(error))
-        // }
+        if (user.data.getUserByEmail !== null){
+            login(user.data.getUserByEmail)
+        } else {
+            await register().then(newUser => {
+                login(newUser.data.createUser)
+            }).catch(error => alert(error))
+        }
     }
 
     const fetchUser = async () => {
@@ -64,7 +64,7 @@ export const useLogin = () => {
             email,
             characters: []
         });
-        navigate('/list')
+        navigate('/list');
     }
 
     const register = async () => {

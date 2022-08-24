@@ -1,12 +1,12 @@
 import {ButtonComponent} from "../../components/button";
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {useCharacterList} from "./hooks";
 import {CharacterComponent} from "../../components/character";
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 export const CharacterList = () => {
-    const {user} = useCharacterList();
+    const {user, onDeleteCharacter} = useCharacterList();
 
     if (user === null) {
         return (
@@ -64,6 +64,7 @@ export const CharacterList = () => {
                                          index={index}
                                          character={character}
                                          user={user}
+                                         onDelete={onDeleteCharacter}
                                      />
                                  ))}
                                 </tbody>

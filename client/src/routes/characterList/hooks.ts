@@ -1,14 +1,15 @@
 import {useContext, useEffect, useState} from "react";
 import {GlobalContext} from "../../context";
 import {Character} from "../../types";
-import {useLazyQuery} from "@apollo/client";
-import {GET_USER_CHARACTERS} from "../../queries/character";
+import {useLazyQuery, useMutation} from "@apollo/client";
+import {DELETE_CHARACTER, GET_USER_CHARACTERS} from "../../queries/character";
 import {useNavigate} from "react-router-dom";
 
 export const useCharacterList = () => {
     const {user, setUser} = useContext(GlobalContext);
     const navigate = useNavigate();
     const [getCharacters, {data, loading, refetch}] = useLazyQuery(GET_USER_CHARACTERS);
+    const [deleteCharacter, _] = useMutation(DELETE_CHARACTER);
 
     useEffect(() => {
         if (user) {
@@ -35,7 +36,21 @@ export const useCharacterList = () => {
         });
     }
 
+    const onDeleteCharacter = async (characterId: number) => {
+        const newCharacters = user!.characters.filter(character => character.id !== characterId);
+        setUser({
+            ...user!,
+            characters: newCharacters
+        })
+        return await deleteCharacter({
+            variables: {
+                deleteCharacterId: characterId
+            }
+        });
+    }
+
+
     return {
-        user
+        user, onDeleteCharacter
     }
 }

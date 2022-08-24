@@ -16,14 +16,22 @@ export const GET_USER_CHARACTERS = gql(`
 
 export const CREATE_CHARACTER = gql(`
     mutation CreateCharacter($bio: String!, $race: String!, $age: Float!, $lastName: String!, $firstName: String!, $userId: Float!) {
-  createCharacter(bio: $bio, race: $race, age: $age, lastName: $lastName, firstName: $firstName, userId: $userId) {
-    id
-    firstName
-    lastName
-    race
-    age
-    bio
-    userId
-  }
-}
+        createCharacter(bio: $bio, race: $race, age: $age, lastName: $lastName, firstName: $firstName, userId: $userId) {
+            id
+            firstName
+            lastName
+            race
+            age
+            bio
+            userId
+        }
+    }
 `)
+
+export const DELETE_CHARACTER = gql(`
+    mutation DeleteCharacter($deleteCharacterId: Float!) {
+        deleteCharacter(id: $deleteCharacterId) {
+            id
+        }
+    }
+`);
