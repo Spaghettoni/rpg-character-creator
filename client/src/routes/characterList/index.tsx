@@ -30,11 +30,11 @@ export const CharacterList = () => {
                     </div>
                     <h2>Your characters ({user.email})</h2>
                 </header>
-                    <section>
+                    <section id={'character-list-section'}>
                     {(user.characters === null || user.characters.length === 0) ?
                      (<p>You currently do not have any characters!</p>) :
                         (
-                         <table className={'grid-container'}>
+                         <table title={'character-list-table'}>
                              <thead>
                              <tr>
                                  <th>#</th>
@@ -63,8 +63,8 @@ export const CharacterList = () => {
                     }
                     </section>
 
-                    <Link to={'/create'}>
-                        <ButtonComponent id={'create-button'} text={'Create new character'}>
+                    <Link to={'/create'} title={'create-page-link'}>
+                        <ButtonComponent id={'create-button'} text={'Create new character'} name={'character-create-button'}>
                             <AddBoxIcon fontSize={'small'}/>
                         </ButtonComponent>
                     </Link>

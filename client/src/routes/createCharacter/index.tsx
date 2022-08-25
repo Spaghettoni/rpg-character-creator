@@ -19,6 +19,7 @@ export const CreateCharacter = () => {
                                 id={'back-button'}
                                 text={''}
                                 name={'back-button'}
+                                aria-label={'back-button'}
                             >
                                 <ArrowBackIcon/>
                             </ButtonComponent>

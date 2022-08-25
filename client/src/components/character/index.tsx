@@ -22,8 +22,9 @@ export const CharacterComponent = (props: CharacterComponentProps) => {
             <td className={'race cell'}>{race}</td>
             <td className={'bio cell'}>{!bio ? '-' : bio}</td>
             <td className={'edit cell'}>
-                <Link to={{pathname:'/create', search: `?myParam=${characterId}`}} state={props.character}>
+                <Link to={{pathname:'/create'}} state={props.character} title={'edit-character-link'}>
                     <button id={'edit-button'} className={'table-button'}
+                            aria-label={'edit-character-button'}
                     >
                         <EditIcon/>
                     </button>
@@ -31,6 +32,7 @@ export const CharacterComponent = (props: CharacterComponentProps) => {
             </td>
             <td className={'delete cell'}>
                 <button id={'delete-button'} className={'table-button'}
+                        aria-label={'delete-character-button'}
                         onClick={() => props.onDelete(characterId)}
                 >
                     <DeleteIcon />

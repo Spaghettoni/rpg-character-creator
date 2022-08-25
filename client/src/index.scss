@@ -31,6 +31,15 @@ header {
 .container {
   max-width: 60rem;
   width: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 2rem;
+  @media only screen and (max-width: 425px) {
+    display: flex;
+    flex-direction: column;
+    max-width: none;
+    flex: 1;
+  }
 }
 
 #create-button, #login-button, #logout-button, #back-button{
