@@ -11,8 +11,13 @@ export const GET_USERS = gql(`
 export const GET_USER_BY_EMAIL = gql(`
     query GetUserByEmail($email: String!) {
         getUserByEmail(email: $email) {
-            email, characters {
+            id, email, characters {
+                id
                 firstName
+                lastName
+                age
+                race
+                bio
             }
         }
     }
@@ -21,7 +26,14 @@ export const GET_USER_BY_EMAIL = gql(`
 export const CREATE_USER = gql(`
     mutation CreateUser($email: String!) {
         createUser(email: $email) {
-            email
+            id, email, characters {
+                id
+                firstName
+                lastName
+                age
+                race
+                bio
+            }
         }
     }
 `)

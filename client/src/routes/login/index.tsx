@@ -1,5 +1,4 @@
 import {useLogin} from "./hooks";
-import './styles.scss';
 import {InputComponent} from "../../components/input";
 import {ButtonComponent} from "../../components/button";
 
@@ -17,7 +16,7 @@ export const Login = () => {
                     <label>
                         Email:
                         <InputComponent
-                            error={!!error}
+                            error={!!error ? 1 : 0}
                             type={'text'}
                             name={'email'}
                             value={email}
@@ -29,6 +28,8 @@ export const Login = () => {
                         <span id={'email-error'}>{error}</span>
                     </label>
                     <ButtonComponent
+                        id={'login-button'}
+                        className={'heloooou'}
                         type={'submit'}
                         name={'login-button'}
                         text={'Login'}

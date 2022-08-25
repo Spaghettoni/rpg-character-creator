@@ -1,16 +1,13 @@
 import {createContext, Dispatch, SetStateAction} from "react";
+import {User} from "../types";
 
 type GlobalContextType = {
-    user: string | null,
-    setUser: Dispatch<SetStateAction<string | null>>,
-    characters: [] | null,
-    setCharacters: Dispatch<SetStateAction<[] | null>>,
+    user: User | null,
+    setUser: Dispatch<SetStateAction<User | null>>,
 }
 
 export const GlobalContext = createContext<GlobalContextType>({
         user: null,
         setUser: () => {},
-        characters: null,
-        setCharacters: () => {}
     }
 )

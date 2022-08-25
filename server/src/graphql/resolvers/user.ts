@@ -2,6 +2,10 @@ import "reflect-metadata";
 import {Arg, Mutation, Query, Resolver} from "type-graphql";
 import prisma from "../../prisma/client";
 import {User} from "../typeDefs/user";
+import {Character} from "../typeDefs/character";
+import {Race} from "@prisma/client";
+// import {Race} from "../typeDefs/race";
+// import {Race, Character} from '@prisma/client'
 
 @Resolver(User)
 export class UserResolver {
@@ -13,7 +17,7 @@ export class UserResolver {
 
     @Query(() => User, {nullable: true})
     async getUserById(id: number) {
-        return prisma.user.findUnique({
+        return await prisma.user.findUnique({
             where: {
                 id: id,
             },
@@ -24,7 +28,7 @@ export class UserResolver {
     async getUserByEmail(
         @Arg("email") email: string,
      ) {
-        return prisma.user.findUnique({
+        return await prisma.user.findUnique({
             where: {
                 email: email,
             },
@@ -35,7 +39,7 @@ export class UserResolver {
     async createUser(
         @Arg("email") email: string,
     ) {
-        return prisma.user.create({
+        return await prisma.user.create({
             data: {
                 email: email,
             }

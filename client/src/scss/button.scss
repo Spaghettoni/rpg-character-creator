@@ -4,6 +4,12 @@
   border-radius: 0.3rem;
   background-color: white;
   font-weight: bold;
+  display: flex;
+  //flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  appearance: none;
 }
 
 @mixin ButtonHover {
@@ -13,10 +19,6 @@
   cursor: pointer;
 }
 
-button {
-  @include Button
-}
-
-button:hover {
-  @include ButtonHover
+#icon-span {
+    margin-left: 0.5rem;
 }
