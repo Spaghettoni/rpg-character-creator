@@ -1,9 +1,14 @@
+#character-list-section {
+  overflow-x: scroll;
+  min-width: 40rem;
+}
+
 table {
   width: 100%;
   table-layout: fixed;
   border-collapse: collapse;
   border: 3px solid black;
-  padding: 3rem;
+
 
   tr {
     border: 1px solid rgba(168, 168, 168, 0.68);
@@ -34,7 +39,7 @@ table {
     text-align: start;
   }
   thead th:nth-child(1) {
-    width: 5%;
+    width: 2rem;
   }
 
   thead th:nth-child(2) {
@@ -54,14 +59,13 @@ table {
   }
 
   thead th:nth-child(6) {
-    width: 20%;
   }
 
   thead th:nth-child(7) {
     width: 5%;
   }
   thead th:nth-child(8) {
-    width: 5%;
+    width: 6%;
   }
 }
 

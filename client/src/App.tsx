@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import './App.scss';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {ApolloClient, ApolloProvider, InMemoryCache} from "@apollo/client";
 import {Login} from "./routes/login";

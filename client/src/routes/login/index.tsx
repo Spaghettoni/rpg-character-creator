@@ -8,9 +8,10 @@ export const Login = () => {
     return (
         <main>
             <section className={'container'}>
+
                 <header>
                     <h2>Login page</h2>
-                    <p>Enter your email below. If you do not have an account, you will automatically be registered</p>
+                    <p>Enter your email below. If you do not have an account, you will automatically be registered.</p>
                 </header>
                 <form id='login-form' onSubmit={onLogin}>
                     <label>

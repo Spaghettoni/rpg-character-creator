@@ -8,7 +8,6 @@ import {GlobalContext} from "../../context";
 export const useCreateCharacter = () => {
     const navigate = useNavigate();
     const {state} = useLocation();
-    const {id} = state as Character;
     const {user, setUser} = useContext(GlobalContext);
     const [isCreating, __] = useState(!state);
     const [newCharacter, setNewCharacter] = useState<Character>({
@@ -50,10 +49,13 @@ export const useCreateCharacter = () => {
                 if (isCreating) {
                     await createNewCharacter()
                 } else {
-                    if (id)
-                    await onEditCharacter(id, newCharacter)
-                        .catch(error => alert(error))
-                        .finally(() => navigate('/list'))
+                    if (state) {
+                        const {id} = state as Character;
+                        await onEditCharacter(id!, newCharacter)
+                            .catch(error => alert(error))
+                            .finally(() => navigate('/list'))
+                    }
+
                 }
             } else {
                 setError({...error, lastName: 'Please enter last name!'});
