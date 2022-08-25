@@ -27,7 +27,6 @@ export class CharacterResolver {
     async editCharacter(
         @Arg("id") id: number,
         @Arg("firstName") firstName: string,
-        @Arg("lastName") lastName: string,
         @Arg("age") age: number,
         @Arg("race") race: Race,
         @Arg("bio") bio: string
@@ -38,7 +37,6 @@ export class CharacterResolver {
             },
             data: {
                 firstName,
-                lastName,
                 age,
                 race,
                 bio

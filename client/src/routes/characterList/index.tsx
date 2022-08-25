@@ -6,20 +6,11 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 export const CharacterList = () => {
-    const {user, onDeleteCharacter, onEditCharacter} = useCharacterList();
+    const {user, onDeleteCharacter, logout} = useCharacterList();
 
     if (user === null) {
         return (
             <main>
-                <section className={'container'}>
-                    <h1>You need to be logged in!</h1>
-                    <Link to={'/'}>
-                        <ButtonComponent
-                            name={'login-button'}
-                            text={'Login'}
-                        />
-                    </Link>
-                </section>
             </main>
         )
     }
@@ -28,15 +19,14 @@ export const CharacterList = () => {
             <section className={'container'}>
                 <header>
                     <div id={'logout-container'}>
-                        <Link to={'/'}>
-                            <ButtonComponent
-                                id={'logout-button'}
-                                text={'Logout'}
-                                name={'logout-button'}
-                            >
-                                <LogoutIcon/>
-                            </ButtonComponent>
-                        </Link>
+                        <ButtonComponent
+                            id={'logout-button'}
+                            text={'Logout'}
+                            name={'logout-button'}
+                            onClick={() => logout()}
+                        >
+                            <LogoutIcon/>
+                        </ButtonComponent>
                     </div>
                     <h2>Your characters ({user.email})</h2>
                 </header>
@@ -63,9 +53,8 @@ export const CharacterList = () => {
                                          key={index}
                                          index={index}
                                          character={character}
-                                         user={user}
+                                         user={user!}
                                          onDelete={onDeleteCharacter}
-                                         onEdit={onEditCharacter}
                                      />
                                  ))}
                                 </tbody>

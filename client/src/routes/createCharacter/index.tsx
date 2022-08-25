@@ -51,6 +51,7 @@ export const CreateCharacter = () => {
                             onChange={handleInput}
                             placeholder={'Mak'}
                             alt={'last-name-input'}
+                            disabled={!isCreating}
                         />
                         {/*<span className={'error'}>{error.lastName}</span>*/}
                     </label>
@@ -92,7 +93,7 @@ export const CreateCharacter = () => {
                         id={'create-button'}
                         type={'submit'}
                         name={'create-button'}
-                        text={'Create'}
+                        text={isCreating ? 'Create' : 'Edit'}
                     />
                 </form>
             </section>

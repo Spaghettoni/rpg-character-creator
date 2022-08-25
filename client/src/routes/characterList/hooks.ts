@@ -2,14 +2,13 @@ import {useContext, useEffect, useState} from "react";
 import {GlobalContext} from "../../context";
 import {Character} from "../../types";
 import {useLazyQuery, useMutation} from "@apollo/client";
-import {DELETE_CHARACTER, GET_USER_CHARACTERS} from "../../queries/character";
+import {DELETE_CHARACTER, EDIT_CHARACTER, GET_USER_CHARACTERS} from "../../queries/character";
 import {useNavigate} from "react-router-dom";
 
 export const useCharacterList = () => {
     const {user, setUser} = useContext(GlobalContext);
     const navigate = useNavigate();
     const [getCharacters, {data, loading, refetch}] = useLazyQuery(GET_USER_CHARACTERS);
-    const [editCharacter, _] = useMutation(DELETE_CHARACTER);
     const [deleteCharacter, __] = useMutation(DELETE_CHARACTER);
 
     useEffect(() => {
@@ -50,30 +49,12 @@ export const useCharacterList = () => {
         });
     }
 
-    const onEditCharacter = async (character: Character) => {
-        const newCharacters = user!.characters.map(char => {
-            if (char.id === character.id) {
-                return character
-            }
-            return char
-        });
-        setUser({
-            ...user!,
-            characters: newCharacters
-        })
-        return await editCharacter({
-            variables: {
-                editCharacterId: character.id,
-                firstName: character.firstName,
-                lastName: character.lastName,
-                race: character.race,
-                bio: character.bio,
-                age: character.age,
-            }
-        });
+    const logout = () => {
+        setUser(null);
+        navigate('/');
     }
 
     return {
-        user, onDeleteCharacter, onEditCharacter
+        user, onDeleteCharacter, logout
     }
 }

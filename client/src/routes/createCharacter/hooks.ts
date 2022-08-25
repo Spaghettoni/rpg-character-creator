@@ -2,13 +2,13 @@ import {ChangeEvent, FormEvent, useContext, useEffect, useState} from "react";
 import {Character, Race} from "../../types";
 import {useLocation, useNavigate} from "react-router-dom";
 import {useMutation} from "@apollo/client";
-import {CREATE_CHARACTER} from "../../queries/character";
+import {CREATE_CHARACTER, EDIT_CHARACTER} from "../../queries/character";
 import {GlobalContext} from "../../context";
 
 export const useCreateCharacter = () => {
     const navigate = useNavigate();
     const {state} = useLocation();
-
+    const {id} = state as Character;
     const {user, setUser} = useContext(GlobalContext);
     const [isCreating, __] = useState(!state);
     const [newCharacter, setNewCharacter] = useState<Character>({
@@ -23,11 +23,10 @@ export const useCreateCharacter = () => {
         lastName: '',
     });
     const [createCharacter, _] = useMutation(CREATE_CHARACTER)
+    const [editCharacter, ___] = useMutation(EDIT_CHARACTER);
+
 
     useEffect(() => {
-        console.log('state', state as Character);
-
-        console.log(isCreating)
         if (user === null) {
             navigate('/');
         }
@@ -48,7 +47,14 @@ export const useCreateCharacter = () => {
         event.preventDefault();
         if (newCharacter.firstName.length > 0 && newCharacter.firstName.length <= 50) {
             if (newCharacter.lastName.length > 0 && newCharacter.lastName.length <= 50) {
-                await createNewCharacter()
+                if (isCreating) {
+                    await createNewCharacter()
+                } else {
+                    if (id)
+                    await onEditCharacter(id, newCharacter)
+                        .catch(error => alert(error))
+                        .finally(() => navigate('/list'))
+                }
             } else {
                 setError({...error, lastName: 'Please enter last name!'});
             }
@@ -80,16 +86,37 @@ export const useCreateCharacter = () => {
             })
     }
 
+    const onEditCharacter = async (characterId: number, characterData: Character) => {
+        const newCharacters = user!.characters.map(char => {
+            if (char.id === characterId) {
+                return characterData
+            }
+            return char
+        });
+        setUser({
+            ...user!,
+            characters: newCharacters
+        })
+        return await editCharacter({
+            variables: {
+                editCharacterId: characterId,
+                firstName: characterData.firstName,
+                race: characterData.race,
+                bio: characterData.bio,
+                age: characterData.age,
+            }
+        });
+    }
+
     const handleInput = (event: ChangeEvent<
-                                HTMLInputElement |
-                                HTMLSelectElement |
-                                HTMLTextAreaElement>) => {
+        HTMLInputElement |
+        HTMLSelectElement |
+        HTMLTextAreaElement>) => {
         setNewCharacter({...newCharacter, [event.target.name]: event.target.value});
         if (event.target.name === 'firstName' || event.target.name === 'lastName'){
             setError({...error, [event.target.name]: ''});
         }
     }
-
     return {
         newCharacter, handleInput, onSubmit, isCreating, error
     }

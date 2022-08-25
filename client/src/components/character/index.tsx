@@ -8,7 +8,6 @@ type CharacterComponentProps = {
     character: Character,
     user: User,
     onDelete: any,
-    onEdit: (character: Character) => any,
 }
 export const CharacterComponent = (props: CharacterComponentProps) => {
     const {id: characterId, firstName, lastName, age, race, bio} = props.character;
